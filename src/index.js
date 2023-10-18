@@ -1,15 +1,12 @@
 import "./css/base.css";
-import { sayHello, createTodo } from "./js/utils";
+import { createTodo, initApp } from "./js/utils";
 
-const main = document.getElementById('main');
-const footer = document.getElementById('footer');
-const createInput = document.getElementById('new-todo');
-
-createInput.addEventListener('keypress', (event) => {
-    if (event.key == 'Enter') {
-        console.log(createInput.value);
-        createTodo(createInput.value)
-    }
+const createInput = document.getElementById("new-todo");
+initApp();
+createInput.addEventListener("keypress", (event) => {
+  if (event.key == "Enter") {
+    console.log(createInput.value);
+    createTodo(createInput.value);
+    createInput.value = "";
+  }
 });
-
-console.log(sayHello("Hello"));
