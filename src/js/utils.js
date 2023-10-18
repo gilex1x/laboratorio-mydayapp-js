@@ -4,8 +4,10 @@ const footer = document.getElementById("footer");
 export const initApp = () => {
   let store = window.localStorage.getItem("mydayapp-js");
   if (JSON.parse(store)) {
-    let items = createItems();
-    drawItems(items);
+    if (JSON.parse(store).length > 0) {
+      let items = createItems(JSON.parse(store));
+      drawItems(items);
+    }
   } else {
     window.localStorage.setItem("mydayapp-js", JSON.stringify([]));
     main.style.display = "none";
@@ -21,7 +23,8 @@ export const createTodo = (todo) => {
     completed: false,
   };
   updateStore(todoItem);
-  let items = createItems();
+  let store = JSON.parse(window.localStorage.getItem("mydayapp-js"));
+  let items = createItems(store);
   drawItems(items);
 };
 
@@ -30,10 +33,8 @@ const drawItems = (items) => {
   container.append(...items);
 };
 
-const createItems = () => {
+const createItems = (itemsList) => {
   //get items from localStorage
-  let items = window.localStorage.getItem("mydayapp-js");
-  let itemsList = JSON.parse(items);
   let drawItems = [];
   itemsList.forEach((element) => {
     let listElement = document.createElement("li");
